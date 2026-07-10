@@ -1,0 +1,20 @@
+# Super easy download (for parents and kids)
+
+**Grok is the teacher — not the person who shared this link.**
+
+## Download
+1. Get the free app ZIP:  
+   https://github.com/wieldyjarl8108-collab/grok-super-tutor/archive/refs/heads/main.zip
+2. Unzip the folder  
+3. Double-click **INSTALL-ME.bat**  
+4. If it asks for Node.js, install free LTS from nodejs.org, then run INSTALL-ME again  
+5. Once: open terminal and type `grok login` (your Grok)  
+6. Desktop shortcut **Grok Agent** appears — double-click anytime  
+
+That is the whole install. Automatic desktop shortcut included.
+
+## For X / friends
+Free Super Tutor if you have Grok. Download, double-click INSTALL-ME, log into Grok. Grok teaches the kids.  
+https://github.com/wieldyjarl8108-collab/grok-super-tutor  
+
+Independent project — not Elon / xAI / Grok official. No Stripe required. App is free.
