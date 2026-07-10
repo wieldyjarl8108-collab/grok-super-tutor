@@ -1,4 +1,4 @@
-# Grok Super Tutor
+﻿# Grok Super Tutor
 
 **Free for everyone with a Grok subscription.**
 
@@ -6,7 +6,7 @@ Local education agent for kids and families.
 Truth-seeking is **locked on**. Runs on **Grok only** (xAI). Endless classes so learners never run out.
 
 > **Independent project.** Not affiliated with, employed by, or endorsed by Elon Musk, xAI, Grok, or X.  
-> Grok is a product of xAI â€” use your own account under their terms.
+> Grok is a product of xAI Ã¢â‚¬â€ use your own account under their terms.
 
 ## Quick start
 
@@ -55,7 +55,7 @@ npm start
 
 ## Share with others
 
-See **[SHARE.md](SHARE.md)** â€” one-page install path + disclaimer for parents.
+See **[SHARE.md](SHARE.md)** Ã¢â‚¬â€ one-page install path + disclaimer for parents.
 
 ## Security & privacy
 
@@ -69,7 +69,7 @@ Older Structure / 3D work is archived under `archive/structura-engineering/` for
 
 ## License
 
-MIT â€” see [LICENSE](LICENSE). Still educational-only in use; not a school or financial advisor.
+MIT Ã¢â‚¬â€ see [LICENSE](LICENSE). Still educational-only in use; not a school or financial advisor.
 
 ## Checks
 
