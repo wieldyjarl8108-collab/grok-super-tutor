@@ -29,3 +29,6 @@ archive/structure-engineering/projects-data/
 # Optional local caches
 *.tmp
 .cache/
+
+# Personal build archives
+archive/structura-engineering/projects-data/
