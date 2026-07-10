@@ -1,4 +1,4 @@
-﻿# Grok Super Tutor
+# Grok Super Tutor
 
 **Free for everyone with a Grok subscription.**
 

@@ -1,4 +1,4 @@
-﻿# Share Grok Super Tutor
+# Share Grok Super Tutor
 
 ## The deal (simple)
 
