@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grok Super Tutor</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect fill='%23000000' width='64' height='64' rx='14'/><text x='50%' y='54%' font-size='28' text-anchor='middle' dominant-baseline='middle' fill='%23fff'>G</text></svg>" />
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <link rel="stylesheet" href="/styles.css?v=edu2" />
+</head>
+<body>
+  <div id="offlineBanner" class="offline-banner" hidden>
+    <strong>Grok is offline</strong>
+    <span>Double-click the Desktop shortcut <b>Grok Agent</b>, then come back here.</span>
+    <button type="button" id="btnRetryServer" class="btn primary">Retry</button>
+  </div>
+  <div class="app">
+    <aside class="nav">
+      <div class="nav-brand">
+        <div class="logo">G</div>
+        <div>
+          <strong>Grok Tutor</strong>
+          <small id="statusLine">Starting…</small>
+        </div>
+      </div>
+      <p class="nav-tagline">Truth-seeking Super Tutor</p>
+      <nav class="nav-tabs">
+        <button type="button" class="nav-btn" data-tab="home">Home</button>
+        <button type="button" class="nav-btn active" data-tab="tutor">Learn</button>
+        <button type="button" class="nav-btn" data-tab="ask">Ask</button>
+        <button type="button" class="nav-btn" data-tab="about">Truth</button>
+      </nav>
+      <div class="headset-box">
+        <p class="headset-title">Headset</p>
+        <button type="button" id="btnHeadsetListen" class="btn soft full">Listen (mic on)</button>
+        <button type="button" id="btnHeadsetStopTalk" class="btn soft full">Stop talking</button>
+        <p id="headsetStatus" class="sub">Plug in headset · talk &amp; listen</p>
+      </div>
+      <div class="connectors-box">
+        <p class="headset-title">Links</p>
+        <button type="button" id="btnConnectGrok" class="btn soft full">Grok web</button>
+        <button type="button" id="btnConnectX" class="btn soft full">Open X</button>
+        <div class="x-handle-row">
+          <input type="text" id="xHandle" placeholder="@yourhandle" />
+          <button type="button" id="btnSaveX" class="btn">Save</button>
+        </div>
+        <p id="connectorStatus" class="sub">Connect X handle for posts</p>
+      </div>
+      <div class="nav-foot">
+        <label class="switch"><input type="checkbox" id="ttsToggle" checked /> Speak replies</label>
+        <span id="statusDot" class="dot"></span>
+      </div>
+    </aside>
+
+    <main class="main">
+      <section id="tab-home" class="tab">
+        <div class="hero">
+          <p class="hero-kicker">Education only · local · no Base44</p>
+          <h1>Grok Super Tutor</h1>
+          <p class="hero-sub">
+            Lessons, classroom teaching, quizzes, market lab, and code lab.
+            Truth first — the engineering Structure product is archived for a later rebuild.
+          </p>
+        </div>
+        <div class="big-grid">
+          <button type="button" class="big-card" data-go="tutor">
+            <span class="emoji">🎓</span>
+            <span class="card-from">Learn</span>
+            <h3>Super Tutor</h3>
+            <p>Kids &amp; adults · age-fit lessons · quizzes · market lab · code lab</p>
+          </button>
+          <button type="button" class="big-card" data-go="ask">
+            <span class="emoji">💬</span>
+            <span class="card-from">Ask</span>
+            <h3>Ask Grok</h3>
+            <p>Homework help and honest answers with local memory</p>
+          </button>
+          <button type="button" class="big-card soft-card" data-go="about">
+            <span class="emoji">⚖️</span>
+            <span class="card-from">Truth</span>
+            <h3>Disclaimers</h3>
+            <p>Educational only · play-money market · local data</p>
+          </button>
+        </div>
+      </section>
+
+      <section id="tab-about" class="tab">
+        <div class="about-wrap panel">
+          <h2>Truth rules · Super Tutor</h2>
+          <p class="sub">This agent is education-only. Structure/engineering is saved under <code>archive/structura-engineering/</code> for a later rebuild.</p>
+          <div class="about-grid">
+            <div class="about-card">
+              <h3>Learn</h3>
+              <ul>
+                <li>Age-adaptive Super Tutor</li>
+                <li>Lessons evolve with quiz scores</li>
+                <li>Market lab = play money only</li>
+                <li>Code lab = real JavaScript</li>
+                <li>Parent briefs stay local</li>
+              </ul>
+              <p class="disclaimer-box" id="discEdu"></p>
+              <p class="disclaimer-box" id="discMarket"></p>
+              <p class="disclaimer-box" id="discHome"></p>
+            </div>
+            <div class="about-card">
+              <h3>Not in this build</h3>
+              <ul>
+                <li>3D structure designer</li>
+                <li>Paper to blueprint</li>
+                <li>Materials catalog / load analysis</li>
+              </ul>
+              <p class="sub">Those files live in the archive so they can be rebuilt properly later.</p>
+            </div>
+          </div>
+          <p class="sub" style="margin-top:16px">Data lives under <code>data/tutor/</code> on this computer.</p>
+        </div>
+      </section>
+
+<!-- SUPER TUTOR (local only) -->
+      <section id="tab-tutor" class="tab">
+        <div class="tutor-layout">
+          <div class="panel tutor-side">
+            <div class="panel-head">
+              <div>
+                <h2>Admin · Kids</h2>
+                <p class="sub">Username + age · lessons grow with them</p>
+              </div>
+            </div>
+            <div id="tutorChildList" class="tutor-child-list"></div>
+            <div class="tutor-admin-add">
+              <label class="sub">Username (first name)</label>
+              <input type="text" id="tutorNewName" placeholder="e.g. Mia" maxlength="40" />
+              <label class="sub" style="margin-top:8px">Age (kids → adults, pick one)</label>
+              <div id="tutorAgeChecks" class="tutor-age-checks"></div>
+              <button type="button" id="tutorAddChild" class="btn primary full" style="margin-top:8px">Add kid</button>
+            </div>
+            <div id="tutorEditBox" class="tutor-edit-box" hidden>
+              <p class="headset-title">Edit selected</p>
+              <input type="text" id="tutorEditName" placeholder="Username" maxlength="40" />
+              <div id="tutorEditAgeChecks" class="tutor-age-checks"></div>
+              <button type="button" id="tutorSaveEdit" class="btn primary full">Save changes</button>
+            </div>
+            <div id="tutorChildStats" class="tutor-stats sub"></div>
+            <div id="tutorPathBox" class="tutor-path-box sub"></div>
+            <div id="tutorParentBrief" class="tutor-brief" hidden></div>
+          </div>
+          <div class="panel wide tutor-main">
+            <div class="panel-head">
+              <div>
+                <h2>Learn · Super Tutor</h2>
+                <p class="sub">From Spark Path · Grok only · evolves with each learner · truth first</p>
+              </div>
+              <div class="row gap wrap">
+                <button type="button" class="btn soft tutor-mode-btn active" data-tutor-mode="lessons">📚 Lessons</button>
+                <button type="button" class="btn soft tutor-mode-btn" data-tutor-mode="market">📈 Market lab</button>
+                <button type="button" class="btn soft tutor-mode-btn" data-tutor-mode="code">💻 Code lab</button>
+                <button type="button" class="btn soft tutor-mode-btn" data-tutor-mode="chat">💬 Ask Grok</button>
+                <span class="pill" id="tutorTruthPill">Truth first</span>
+              </div>
+            </div>
+
+            <!-- LESSON LIBRARY (evolves with learner) -->
+            <div id="tutorLessonsView" class="tutor-lessons-view">
+              <div id="tutorNextUp" class="tutor-next-up" hidden></div>
+              <div class="tutor-lib-bar">
+                <input type="search" id="tutorLessonSearch" placeholder="Search lessons…" />
+                <label class="switch tutor-age-fit"><input type="checkbox" id="tutorAgeFit" checked /> Age-fit only</label>
+                <span class="pill" id="tutorLessonCount">0 lessons</span>
+              </div>
+              <div id="tutorSubjectFilters" class="chips tutor-subjects"></div>
+              <div id="tutorPathFilters" class="chips tutor-path-filters"></div>
+              <div id="tutorLessonGrid" class="tutor-lesson-grid"></div>
+            </div>
+
+            <!-- Stock market (fake money + live teaching) -->
+            <div id="tutorMarketView" class="tutor-market-view" hidden></div>
+
+            <!-- Code lab (real JavaScript) -->
+            <div id="tutorCodeView" class="tutor-code-view" hidden></div>
+
+            <!-- CHAT -->
+            <div id="tutorChatView" class="tutor-chat-view" hidden>
+              <div id="tutorMessages" class="messages tall"></div>
+              <div id="tutorHints" class="chips"></div>
+              <div id="tutorLessonCard" class="tutor-lesson" hidden></div>
+              <div id="tutorQuizCard" class="tutor-quiz" hidden></div>
+              <p id="tutorTyping" class="typing" hidden>Grok is teaching…</p>
+              <div class="composer">
+                <button type="button" id="tutorMic" class="icon-btn" title="Talk">🎤</button>
+                <textarea id="tutorInput" rows="2" placeholder="Ask Grok to teach something true…"></textarea>
+                <button type="button" id="tutorSend" class="btn primary">Teach</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Classroom: split screen — lesson left, big picture/video right -->
+        <div id="tutorLessonModal" class="tutor-modal classroom-modal" hidden>
+          <div class="tutor-modal-card classroom-card">
+            <button type="button" id="tutorModalClose" class="btn soft tutor-modal-x">✕</button>
+
+            <div class="classroom-split">
+              <!-- LEFT: lesson / teacher -->
+              <div class="classroom-lesson-pane">
+                <div class="chalkboard">
+                  <div class="chalkboard-rail"></div>
+                  <p class="chalkboard-label">Today’s class</p>
+                  <h2 id="tutorModalTitle" class="chalkboard-title">Lesson</h2>
+                  <p id="tutorModalDesc" class="chalkboard-desc"></p>
+                  <div class="row gap wrap chalkboard-pills">
+                    <span class="pill" id="tutorModalSubject"></span>
+                    <span class="pill" id="tutorModalDiff"></span>
+                    <span class="pill" id="tutorModalXp"></span>
+                    <span class="pill" id="tutorModalPhase">Class</span>
+                  </div>
+                </div>
+
+                <div class="tutor-modal-body classroom-body">
+                  <div class="teacher-badge classroom-teacher-inline">
+                    <span class="teacher-face">👩‍🏫</span>
+                    <div>
+                      <strong>Teacher Grok</strong>
+                      <p class="sub" id="classroomSeatLabel">Your seat</p>
+                    </div>
+                  </div>
+
+                  <div id="tutorModalDisclaimer" class="tutor-disclaimer" hidden></div>
+
+                  <div class="speech-stage">
+                    <div class="teacher-avatar" aria-hidden="true">👩‍🏫</div>
+                    <div class="speech-bubble" id="tutorTeacherBubble">
+                      <p class="speech-who">Teacher Grok</p>
+                      <p id="tutorTeacherLine">Have a seat. Press <strong>Start class</strong> when you’re ready — just like school.</p>
+                    </div>
+                  </div>
+
+                  <div class="lesson-progress-bar" aria-hidden="true">
+                    <div id="tutorLessonProgressFill" class="lesson-progress-fill"></div>
+                  </div>
+                  <p id="tutorLessonProgressText" class="sub">Class is ready. Press <strong>Start class</strong>.</p>
+
+                  <div id="tutorClassLog" class="class-log" aria-live="polite"></div>
+
+                  <div class="raise-hand vision-raise">
+                    <div class="vision-row">
+                      <div class="vision-preview-wrap">
+                        <video id="tutorCamVideo" class="tutor-cam-video" playsinline muted autoplay></video>
+                        <canvas id="tutorCamCanvas" class="tutor-cam-canvas"></canvas>
+                        <span id="tutorCamBadge" class="cam-badge">Camera off</span>
+                      </div>
+                      <div class="vision-controls">
+                        <p class="sub"><strong>Grok can see you</strong> (local only — video never leaves this PC)</p>
+                        <p id="tutorCamStatus" class="sub">Checking for a camera…</p>
+                        <div class="row gap wrap">
+                          <button type="button" id="tutorCamToggle" class="btn soft">📷 Start camera</button>
+                          <button type="button" id="tutorRaiseHandBtn" class="btn primary">✋ I raised my hand</button>
+                        </div>
+                        <label class="switch"><input type="checkbox" id="tutorCamWatch" checked /> Watch for raised hand</label>
+                      </div>
+                    </div>
+                    <div id="tutorHandRaiseBanner" class="hand-raise-banner" hidden>
+                      <strong>✋ Hand up!</strong> Teacher paused the lesson. What is your question?
+                    </div>
+                    <span class="sub">Ask the teacher</span>
+                    <div class="composer class-composer">
+                      <button type="button" id="tutorClassMic" class="icon-btn" title="Talk to teacher">🎤</button>
+                      <input type="text" id="tutorClassAsk" placeholder="Type your question…" />
+                      <button type="button" id="tutorClassAskBtn" class="btn soft">Ask teacher</button>
+                    </div>
+                  </div>
+
+                  <div class="row gap wrap lesson-player-controls">
+                    <button type="button" id="tutorLessonStart" class="btn primary">▶ Start class</button>
+                    <button type="button" id="tutorLessonPause" class="btn soft" disabled>⏸ Pause</button>
+                    <button type="button" id="tutorLessonContinue" class="btn soft" disabled>▶ Continue</button>
+                    <button type="button" id="tutorModalQuiz" class="btn primary">Start quiz</button>
+                    <button type="button" id="tutorModalNextLesson" class="btn soft" hidden>➡ Next class</button>
+                    <button type="button" id="tutorModalClose2" class="btn">Leave class</button>
+                  </div>
+                  <div id="tutorModalQuizArea" class="tutor-quiz" hidden></div>
+                </div>
+              </div>
+
+              <!-- RIGHT: big picture / video -->
+              <div class="classroom-media-pane">
+                <div class="media-pane-label">See · hear · learn</div>
+                <div id="tutorVisualStage" class="visual-stage" aria-label="Lesson pictures and video"></div>
+                <img id="tutorModalPic" hidden alt="" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      
+<!-- ASK -->
+      <section id="tab-ask" class="tab">
+        <div class="ask-wrap">
+          <div class="panel chat-panel wide">
+            <div class="panel-head">
+              <div>
+                <h2>Ask anything</h2>
+                <p class="sub">School help · ideas · honest answers</p>
+              </div>
+              <button type="button" id="askClear" class="btn">Clear</button>
+            </div>
+            <div id="askMessages" class="messages tall"></div>
+            <div class="chips" id="askHints"></div>
+            <div class="composer">
+              <button type="button" id="askMic" class="icon-btn">🎤</button>
+              <textarea id="askInput" rows="2" placeholder="Type anything…"></textarea>
+              <button type="button" id="askSend" class="btn primary">Send</button>
+            </div>
+          </div>
+          <div class="panel memory-panel">
+            <h3>Memory</h3>
+            <p id="memUser" class="sub">Grok remembers lessons and learner facts (local only)</p>
+            <h4>Facts</h4>
+            <ul id="memFacts"></ul>
+            <h4>Lessons</h4>
+            <ul id="memLessons"></ul>
+            <div class="row gap">
+              <input id="memName" type="text" placeholder="Your name" />
+              <button type="button" id="memSaveName" class="btn">Save</button>
+            </div>
+            <button type="button" id="memClear" class="btn soft danger full">Clear memory</button>
+          </div>
+        </div>
+      </section>
+    
+    </main>
+  </div>
+  <script type="module" src="/app.js?v=edu2"></script>
+</body>
+</html>

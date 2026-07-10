@@ -1,0 +1,30 @@
+{
+  "name": "grok-super-tutor",
+  "version": "1.0.0",
+  "private": false,
+  "description": "Free Super Tutor for anyone with a Grok subscription. Local education agent — truth-seeking locked, Grok only, endless classes.",
+  "type": "module",
+  "license": "MIT",
+  "keywords": [
+    "grok",
+    "xai",
+    "education",
+    "tutor",
+    "kids",
+    "truth-seeking",
+    "local",
+    "super-tutor"
+  ],
+  "scripts": {
+    "start": "node server.mjs",
+    "check": "node scripts/self-check.mjs",
+    "install-pc": "powershell -NoProfile -ExecutionPolicy Bypass -File ./Install-Grok-Agent.ps1",
+    "uninstall-pc": "powershell -NoProfile -ExecutionPolicy Bypass -File ./Install-Grok-Agent.ps1 -Uninstall"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}

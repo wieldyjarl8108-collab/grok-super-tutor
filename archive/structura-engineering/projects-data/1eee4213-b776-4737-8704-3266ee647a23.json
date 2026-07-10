@@ -1,0 +1,39 @@
+{
+  "id": "1eee4213-b776-4737-8704-3266ee647a23",
+  "title": "New build",
+  "createdAt": "2026-07-10T00:57:36.656Z",
+  "updatedAt": "2026-07-10T00:57:36.656Z",
+  "scene": {
+    "version": 2,
+    "title": "New build",
+    "description": "Describe a structure (beam, bridge, frame, cabin…) with real dimensions. Engineering model + analysis.",
+    "units": "m",
+    "ground": true,
+    "sky": "#0f172a",
+    "ambient": 0.35,
+    "structure": null,
+    "analysis": null,
+    "riskZones": [],
+    "objects": [],
+    "annotations": [],
+    "camera": {
+      "target": [
+        0,
+        1.5,
+        0
+      ],
+      "distance": 14,
+      "theta": 0.7,
+      "phi": 1
+    },
+    "updatedAt": "2026-07-10T00:57:36.656Z"
+  },
+  "messages": [
+    {
+      "role": "assistant",
+      "content": "👋 I'm **Grok** — your co-builder.\n\nWe design **in 3D together**. Tell me anything you can imagine:\n- *“Build a steel pedestrian bridge”*\n- *“Make a 6-DOF robot arm”*\n- *“Design a tiny Mars habitat”*\n- *“A wooden cabin with a loft”*\n\nI'll place real geometry you can orbit, and **we can change it anytime**. I remember everything we build and talk about.\n\nWhat should we create first?",
+      "at": "2026-07-10T00:57:36.656Z"
+    }
+  ],
+  "buildLog": []
+}

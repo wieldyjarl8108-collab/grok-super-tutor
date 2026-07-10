@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+
+# Secrets & local config (never publish API keys)
+config.json
+.env
+.env.*
+*.pem
+*.key
+
+# Local runtime data (learners, progress, sessions — personal)
+data/
+
+# Logs
+*.log
+data/**/*.log
+npm-debug.log*
+
+# OS / editor
+.DS_Store
+Thumbs.db
+Desktop.ini
+.vscode/
+.idea/
+
+# Personal engineering project snapshots (not for public)
+archive/structure-engineering/projects-data/
+
+# Optional local caches
+*.tmp
+.cache/

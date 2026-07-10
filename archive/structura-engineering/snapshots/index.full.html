@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grok Agent — Structura + Spark Path</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect fill='%23000000' width='64' height='64' rx='14'/><text x='50%' y='54%' font-size='28' text-anchor='middle' dominant-baseline='middle' fill='%23fff'>G</text></svg>" />
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.171.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.171.0/examples/jsm/"
+    }
+  }
+  </script>
+  <link rel="stylesheet" href="/styles.css?v=unify1" />
+</head>
+<body>
+  <div id="offlineBanner" class="offline-banner" hidden>
+    <strong>Grok is offline</strong>
+    <span>Double-click the Desktop shortcut <b>Grok Agent</b>, then come back here.</span>
+    <button type="button" id="btnRetryServer" class="btn primary">Retry</button>
+  </div>
+  <div class="app">
+    <!-- SIDE NAV -->
+    <aside class="nav">
+      <div class="nav-brand">
+        <div class="logo">G</div>
+        <div>
+          <strong>Grok Agent</strong>
+          <small id="statusLine">Starting…</small>
+        </div>
+      </div>
+      <p class="nav-tagline">Structura + Spark Path · one agent</p>
+      <nav class="nav-tabs">
+        <button type="button" class="nav-btn active" data-tab="home">Home</button>
+        <button type="button" class="nav-btn" data-tab="tutor">Learn</button>
+        <button type="button" class="nav-btn" data-tab="build">Structure</button>
+        <button type="button" class="nav-btn" data-tab="ask">Ask</button>
+        <button type="button" class="nav-btn" data-tab="about">Truth</button>
+      </nav>
+      <div class="headset-box">
+        <p class="headset-title">🎧 Headset</p>
+        <button type="button" id="btnHeadsetListen" class="btn soft full">Listen (mic on)</button>
+        <button type="button" id="btnHeadsetStopTalk" class="btn soft full">Stop talking</button>
+        <p id="headsetStatus" class="sub">Plug in headset · talk &amp; listen</p>
+      </div>
+      <div class="connectors-box">
+        <p class="headset-title">Links</p>
+        <button type="button" id="btnConnectGrok" class="btn soft full">Grok web</button>
+        <button type="button" id="btnConnectX" class="btn soft full">Open X</button>
+        <div class="x-handle-row">
+          <input type="text" id="xHandle" placeholder="@yourhandle" />
+          <button type="button" id="btnSaveX" class="btn">Save</button>
+        </div>
+        <p id="connectorStatus" class="sub">Connect X handle for posts</p>
+      </div>
+      <div class="nav-foot">
+        <label class="switch"><input type="checkbox" id="ttsToggle" checked /> Speak replies</label>
+        <span id="statusDot" class="dot"></span>
+      </div>
+    </aside>
+
+    <main class="main">
+      <!-- HOME — unified agent from both apps -->
+      <section id="tab-home" class="tab active">
+        <div class="hero">
+          <p class="hero-kicker">One local agent · no Base44</p>
+          <h1>Grok Agent</h1>
+          <p class="hero-sub">
+            <strong>Spark Path Learn</strong> (teaching) + <strong>Structura AI</strong> (engineering)
+            merged into a single Grok on this PC. Truth first.
+          </p>
+        </div>
+        <div class="merge-banner">
+          <div class="merge-app">
+            <span class="merge-label">From Spark Path</span>
+            <strong>Super Tutor · kids · lessons · market · code</strong>
+          </div>
+          <div class="merge-plus">+</div>
+          <div class="merge-app">
+            <span class="merge-label">From Structura</span>
+            <strong>Structures · materials · loads · analysis</strong>
+          </div>
+          <div class="merge-plus">=</div>
+          <div class="merge-app merge-result">
+            <span class="merge-label">This agent</span>
+            <strong>One Grok · one shortcut · one brain</strong>
+          </div>
+        </div>
+        <div class="big-grid">
+          <button type="button" class="big-card" data-go="tutor">
+            <span class="emoji">🎓</span>
+            <span class="card-from">Spark Path Learn</span>
+            <h3>Learn · Super Tutor</h3>
+            <p>Kids &amp; adults · age checkbox · evolving lessons · quizzes · market lab · code lab · parent briefs</p>
+          </button>
+          <button type="button" class="big-card" data-go="build">
+            <span class="emoji">🏗️</span>
+            <span class="card-from">Structura AI</span>
+            <h3>Structure</h3>
+            <p>Beams · bridges · frames · real materials · loads · Forces / Heat / Sim · educational analysis</p>
+          </button>
+          <button type="button" class="big-card" data-go="ask">
+            <span class="emoji">💬</span>
+            <span class="card-from">Both apps</span>
+            <h3>Ask Grok</h3>
+            <p>School, design, ideas — same long-term memory, same truth rules</p>
+          </button>
+          <button type="button" class="big-card soft-card" data-go="about">
+            <span class="emoji">⚖️</span>
+            <span class="card-from">Truth &amp; safety</span>
+            <h3>Disclaimers</h3>
+            <p>Not a PE stamp · play-money market · educational only · local data</p>
+          </button>
+        </div>
+      </section>
+
+      <!-- TRUTH / DISCLAIMERS (both apps) -->
+      <section id="tab-about" class="tab">
+        <div class="about-wrap panel">
+          <h2>Truth rules · one agent</h2>
+          <p class="sub">Grok Agent replaces the separate Base44 apps <em>Structura AI</em> and <em>Spark Path Learn</em> on this PC.</p>
+          <div class="about-grid">
+            <div class="about-card">
+              <h3>🎓 Learn (Spark Path)</h3>
+              <ul>
+                <li>Age-adaptive Super Tutor</li>
+                <li>Lessons evolve with quiz scores</li>
+                <li>Market lab = play money only</li>
+                <li>Code lab = real JavaScript</li>
+                <li>Parent briefs stay local</li>
+              </ul>
+              <p class="disclaimer-box" id="discEdu"></p>
+              <p class="disclaimer-box" id="discMarket"></p>
+              <p class="disclaimer-box" id="discHome"></p>
+            </div>
+            <div class="about-card">
+              <h3>🏗️ Structure (Structura)</h3>
+              <ul>
+                <li>Structure types + real dimensions</li>
+                <li>Material catalog (E, fy, density)</li>
+                <li>Loads + force arrows</li>
+                <li>Heat risk zones + deflection sim</li>
+                <li>Order-of-magnitude analysis</li>
+              </ul>
+              <p class="disclaimer-box" id="discStruct"></p>
+              <p class="disclaimer-box" id="discMat"></p>
+              <p class="disclaimer-box" id="discSim"></p>
+            </div>
+          </div>
+          <p class="sub" style="margin-top:16px">Data lives under <code>data/</code> on this computer. No Base44 cloud school or design backend.</p>
+        </div>
+      </section>
+
+      <!-- SUPER TUTOR (local only) -->
+      <section id="tab-tutor" class="tab">
+        <div class="tutor-layout">
+          <div class="panel tutor-side">
+            <div class="panel-head">
+              <div>
+                <h2>Admin · Kids</h2>
+                <p class="sub">Username + age · lessons grow with them</p>
+              </div>
+            </div>
+            <div id="tutorChildList" class="tutor-child-list"></div>
+            <div class="tutor-admin-add">
+              <label class="sub">Username (first name)</label>
+              <input type="text" id="tutorNewName" placeholder="e.g. Mia" maxlength="40" />
+              <label class="sub" style="margin-top:8px">Age (kids → adults, pick one)</label>
+              <div id="tutorAgeChecks" class="tutor-age-checks"></div>
+              <button type="button" id="tutorAddChild" class="btn primary full" style="margin-top:8px">Add kid</button>
+            </div>
+            <div id="tutorEditBox" class="tutor-edit-box" hidden>
+              <p class="headset-title">Edit selected</p>
+              <input type="text" id="tutorEditName" placeholder="Username" maxlength="40" />
+              <div id="tutorEditAgeChecks" class="tutor-age-checks"></div>
+              <button type="button" id="tutorSaveEdit" class="btn primary full">Save changes</button>
+            </div>
+            <div id="tutorChildStats" class="tutor-stats sub"></div>
+            <div id="tutorPathBox" class="tutor-path-box sub"></div>
+            <div id="tutorParentBrief" class="tutor-brief" hidden></div>
+          </div>
+          <div class="panel wide tutor-main">
+            <div class="panel-head">
+              <div>
+                <h2>Learn · Super Tutor</h2>
+                <p class="sub">From Spark Path · Grok only · evolves with each learner · truth first</p>
+              </div>
+              <div class="row gap wrap">
+                <button type="button" class="btn soft tutor-mode-btn active" data-tutor-mode="lessons">📚 Lessons</button>
+                <button type="button" class="btn soft tutor-mode-btn" data-tutor-mode="market">📈 Market lab</button>
+                <button type="button" class="btn soft tutor-mode-btn" data-tutor-mode="code">💻 Code lab</button>
+                <button type="button" class="btn soft tutor-mode-btn" data-tutor-mode="chat">💬 Ask Grok</button>
+                <span class="pill" id="tutorTruthPill">Truth first</span>
+              </div>
+            </div>
+
+            <!-- LESSON LIBRARY (evolves with learner) -->
+            <div id="tutorLessonsView" class="tutor-lessons-view">
+              <div id="tutorNextUp" class="tutor-next-up" hidden></div>
+              <div class="tutor-lib-bar">
+                <input type="search" id="tutorLessonSearch" placeholder="Search lessons…" />
+                <label class="switch tutor-age-fit"><input type="checkbox" id="tutorAgeFit" checked /> Age-fit only</label>
+                <span class="pill" id="tutorLessonCount">0 lessons</span>
+              </div>
+              <div id="tutorSubjectFilters" class="chips tutor-subjects"></div>
+              <div id="tutorPathFilters" class="chips tutor-path-filters"></div>
+              <div id="tutorLessonGrid" class="tutor-lesson-grid"></div>
+            </div>
+
+            <!-- Stock market (fake money + live teaching) -->
+            <div id="tutorMarketView" class="tutor-market-view" hidden></div>
+
+            <!-- Code lab (real JavaScript) -->
+            <div id="tutorCodeView" class="tutor-code-view" hidden></div>
+
+            <!-- CHAT -->
+            <div id="tutorChatView" class="tutor-chat-view" hidden>
+              <div id="tutorMessages" class="messages tall"></div>
+              <div id="tutorHints" class="chips"></div>
+              <div id="tutorLessonCard" class="tutor-lesson" hidden></div>
+              <div id="tutorQuizCard" class="tutor-quiz" hidden></div>
+              <p id="tutorTyping" class="typing" hidden>Grok is teaching…</p>
+              <div class="composer">
+                <button type="button" id="tutorMic" class="icon-btn" title="Talk">🎤</button>
+                <textarea id="tutorInput" rows="2" placeholder="Ask Grok to teach something true…"></textarea>
+                <button type="button" id="tutorSend" class="btn primary">Teach</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Classroom: split screen — lesson left, big picture/video right -->
+        <div id="tutorLessonModal" class="tutor-modal classroom-modal" hidden>
+          <div class="tutor-modal-card classroom-card">
+            <button type="button" id="tutorModalClose" class="btn soft tutor-modal-x">✕</button>
+
+            <div class="classroom-split">
+              <!-- LEFT: lesson / teacher -->
+              <div class="classroom-lesson-pane">
+                <div class="chalkboard">
+                  <div class="chalkboard-rail"></div>
+                  <p class="chalkboard-label">Today’s class</p>
+                  <h2 id="tutorModalTitle" class="chalkboard-title">Lesson</h2>
+                  <p id="tutorModalDesc" class="chalkboard-desc"></p>
+                  <div class="row gap wrap chalkboard-pills">
+                    <span class="pill" id="tutorModalSubject"></span>
+                    <span class="pill" id="tutorModalDiff"></span>
+                    <span class="pill" id="tutorModalXp"></span>
+                    <span class="pill" id="tutorModalPhase">Class</span>
+                  </div>
+                </div>
+
+                <div class="tutor-modal-body classroom-body">
+                  <div class="teacher-badge classroom-teacher-inline">
+                    <span class="teacher-face">👩‍🏫</span>
+                    <div>
+                      <strong>Teacher Grok</strong>
+                      <p class="sub" id="classroomSeatLabel">Your seat</p>
+                    </div>
+                  </div>
+
+                  <div id="tutorModalDisclaimer" class="tutor-disclaimer" hidden></div>
+
+                  <div class="speech-stage">
+                    <div class="teacher-avatar" aria-hidden="true">👩‍🏫</div>
+                    <div class="speech-bubble" id="tutorTeacherBubble">
+                      <p class="speech-who">Teacher Grok</p>
+                      <p id="tutorTeacherLine">Have a seat. Press <strong>Start class</strong> when you’re ready — just like school.</p>
+                    </div>
+                  </div>
+
+                  <div class="lesson-progress-bar" aria-hidden="true">
+                    <div id="tutorLessonProgressFill" class="lesson-progress-fill"></div>
+                  </div>
+                  <p id="tutorLessonProgressText" class="sub">Class is ready. Press <strong>Start class</strong>.</p>
+
+                  <div id="tutorClassLog" class="class-log" aria-live="polite"></div>
+
+                  <div class="raise-hand vision-raise">
+                    <div class="vision-row">
+                      <div class="vision-preview-wrap">
+                        <video id="tutorCamVideo" class="tutor-cam-video" playsinline muted autoplay></video>
+                        <canvas id="tutorCamCanvas" class="tutor-cam-canvas"></canvas>
+                        <span id="tutorCamBadge" class="cam-badge">Camera off</span>
+                      </div>
+                      <div class="vision-controls">
+                        <p class="sub"><strong>Grok can see you</strong> (local only — video never leaves this PC)</p>
+                        <p id="tutorCamStatus" class="sub">Checking for a camera…</p>
+                        <div class="row gap wrap">
+                          <button type="button" id="tutorCamToggle" class="btn soft">📷 Start camera</button>
+                          <button type="button" id="tutorRaiseHandBtn" class="btn primary">✋ I raised my hand</button>
+                        </div>
+                        <label class="switch"><input type="checkbox" id="tutorCamWatch" checked /> Watch for raised hand</label>
+                      </div>
+                    </div>
+                    <div id="tutorHandRaiseBanner" class="hand-raise-banner" hidden>
+                      <strong>✋ Hand up!</strong> Teacher paused the lesson. What is your question?
+                    </div>
+                    <span class="sub">Ask the teacher</span>
+                    <div class="composer class-composer">
+                      <button type="button" id="tutorClassMic" class="icon-btn" title="Talk to teacher">🎤</button>
+                      <input type="text" id="tutorClassAsk" placeholder="Type your question…" />
+                      <button type="button" id="tutorClassAskBtn" class="btn soft">Ask teacher</button>
+                    </div>
+                  </div>
+
+                  <div class="row gap wrap lesson-player-controls">
+                    <button type="button" id="tutorLessonStart" class="btn primary">▶ Start class</button>
+                    <button type="button" id="tutorLessonPause" class="btn soft" disabled>⏸ Pause</button>
+                    <button type="button" id="tutorLessonContinue" class="btn soft" disabled>▶ Continue</button>
+                    <button type="button" id="tutorModalQuiz" class="btn primary">Start quiz</button>
+                    <button type="button" id="tutorModalNextLesson" class="btn soft" hidden>➡ Next class</button>
+                    <button type="button" id="tutorModalClose2" class="btn">Leave class</button>
+                  </div>
+                  <div id="tutorModalQuizArea" class="tutor-quiz" hidden></div>
+                </div>
+              </div>
+
+              <!-- RIGHT: big picture / video -->
+              <div class="classroom-media-pane">
+                <div class="media-pane-label">See · hear · learn</div>
+                <div id="tutorVisualStage" class="visual-stage" aria-label="Lesson pictures and video"></div>
+                <img id="tutorModalPic" hidden alt="" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- STRUCTURAL DESIGNER (Structura-style) -->
+      <section id="tab-build" class="tab build-tab">
+        <div class="split build-split">
+          <div class="panel grow build-viewport-panel">
+            <div class="panel-head build-toolbar">
+              <div class="build-title-block">
+                <h2 id="sceneTitle">Structure · Structura</h2>
+                <p id="sceneDesc" class="sub build-desc-hidden" hidden></p>
+              </div>
+              <div class="row gap wrap build-actions">
+                <span class="pill" id="partCount">0 members</span>
+                <span class="pill" id="riskPill" title="Educational risk estimate">Risk —</span>
+                <button type="button" id="btnFrame" class="btn soft">Frame</button>
+                <button type="button" id="btnLabels" class="btn soft">Labels off</button>
+                <button type="button" id="btnPaper" class="btn soft">📄 Paper→Blueprint</button>
+                <button type="button" id="btnMaterials" class="btn soft">Materials</button>
+                <button type="button" id="btnAnalyze" class="btn soft">Analyze</button>
+                <button type="button" id="btnNew" class="btn">New</button>
+                <button type="button" id="btnToggleChat" class="btn soft">Hide chat</button>
+              </div>
+            </div>
+            <!-- Paper sketch → blueprint partner -->
+            <div id="paperBlueprintPanel" class="paper-bp-panel" hidden>
+              <div class="paper-bp-head">
+                <div>
+                  <h3>Paper → Blueprint → Build</h3>
+                  <p class="sub">Draw a house on paper · Grok sees it · real plan · clay to roof · prices &amp; contractors (live research)</p>
+                </div>
+                <button type="button" id="btnPaperClose" class="btn soft">Close</button>
+              </div>
+              <div class="paper-bp-grid">
+                <div class="paper-bp-capture">
+                  <div class="paper-cam-wrap">
+                    <video id="paperCamVideo" playsinline muted autoplay></video>
+                    <img id="paperSnapPreview" alt="Sketch snapshot" hidden />
+                  </div>
+                  <div class="row gap wrap">
+                    <button type="button" id="btnPaperCam" class="btn soft">📷 Camera</button>
+                    <button type="button" id="btnPaperSnap" class="btn primary" disabled>📸 Snap sketch</button>
+                    <label class="btn soft file-label">Upload photo<input type="file" id="paperFile" accept="image/*" hidden /></label>
+                  </div>
+                  <label class="sub">Notes (rooms, sizes, “red clay brick”, city…)</label>
+                  <textarea id="paperNotes" rows="2" placeholder="e.g. 2 bed cottage, red clay brick, porch, near Austin TX, ~30×40 ft"></textarea>
+                  <label class="sub">Location (for live price / contractor search)</label>
+                  <input type="text" id="paperLocation" placeholder="City, State" />
+                  <label class="sub">Wall system</label>
+                  <select id="paperWallMat">
+                    <option value="red clay brick">Red clay brick</option>
+                    <option value="concrete block">Concrete block</option>
+                    <option value="wood frame">Wood frame</option>
+                    <option value="insulated concrete forms">ICF</option>
+                  </select>
+                  <button type="button" id="btnPaperBuild" class="btn primary full" style="margin-top:8px">🧠 Make blueprint + build plan</button>
+                  <p id="paperBpStatus" class="sub">Point camera at your paper drawing, or upload a photo.</p>
+                </div>
+                <div class="paper-bp-plan">
+                  <canvas id="blueprintCanvas" class="blueprint-canvas"></canvas>
+                  <div class="row gap wrap" style="margin-top:8px">
+                    <button type="button" id="btnResearchPrices" class="btn soft" disabled>💲 Live price check</button>
+                    <button type="button" id="btnResearchSubs" class="btn soft" disabled>👷 Find contractors / sub out</button>
+                    <button type="button" id="btnResearchBoth" class="btn soft" disabled>🔍 Research everything</button>
+                  </div>
+                </div>
+              </div>
+              <div id="buildPlanPanel" class="build-plan-panel"></div>
+            </div>
+            <div id="materialsPanel" class="materials-panel" hidden>
+              <div class="materials-head">
+                <h3>Material catalog</h3>
+                <button type="button" id="btnMaterialsClose" class="btn soft">Close</button>
+              </div>
+              <p class="sub">Typical engineering values for learning — verify for real projects.</p>
+              <div id="materialsList" class="materials-list"></div>
+            </div>
+            <div class="struct-mode-bar" id="structModes">
+              <button type="button" class="mode-btn active" data-mode="3D">3D</button>
+              <button type="button" class="mode-btn" data-mode="Forces">Forces</button>
+              <button type="button" class="mode-btn" data-mode="Heat">Heat</button>
+              <button type="button" class="mode-btn" data-mode="Sim">Sim</button>
+            </div>
+            <div id="projectList" class="chips build-projects"></div>
+            <div id="viewport" class="viewport viewport-eng">
+              <canvas id="c3d"></canvas>
+              <div class="hud hud-slim">
+                <span>Orbit · scroll · click member</span>
+                <span id="selectedInfo"></span>
+              </div>
+              <div id="simPanel" class="sim-panel" hidden>
+                <label>Gravity <input type="range" id="simG" min="0" max="3" step="0.05" value="1" /></label>
+                <label>Wind m/s <input type="range" id="simW" min="0" max="80" step="1" value="0" /></label>
+                <label>Seismic g <input type="range" id="simS" min="0" max="2.5" step="0.05" value="0" /></label>
+                <div class="row gap">
+                  <button type="button" id="simRun" class="btn primary soft">Run sim</button>
+                  <button type="button" id="simReset" class="btn soft">Reset</button>
+                </div>
+                <p id="simReadout" class="sub">δ peak —</p>
+              </div>
+              <button type="button" id="btnShowChat" class="btn primary show-chat-fab" hidden title="Show chat">Show chat</button>
+            </div>
+            <p class="eng-disclaimer" id="engDisclaimer">Educational structural estimate only — not a PE stamp, not for construction.</p>
+            <div class="struct-meta" id="structMeta"></div>
+            <div id="partsList" class="parts"></div>
+          </div>
+          <div class="panel chat-panel build-chat" id="buildChat">
+            <div class="build-chat-head">
+              <h3>Design with Grok</h3>
+              <button type="button" id="btnHideChat" class="btn soft" title="Hide chat">Hide</button>
+            </div>
+            <div id="messages" class="messages"></div>
+            <div id="hints" class="chips"></div>
+            <p id="typing" class="typing" hidden>Grok is engineering…</p>
+            <div class="composer">
+              <button type="button" id="btnMic" class="icon-btn" title="Talk">🎤</button>
+              <textarea id="input" rows="2" placeholder="Build partner… or open Paper→Blueprint for sketches"></textarea>
+              <button type="button" id="btnSend" class="btn primary">Go</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ASK -->
+      <section id="tab-ask" class="tab">
+        <div class="ask-wrap">
+          <div class="panel chat-panel wide">
+            <div class="panel-head">
+              <div>
+                <h2>Ask anything</h2>
+                <p class="sub">Same Grok — builds, school, ideas</p>
+              </div>
+              <button type="button" id="askClear" class="btn">Clear</button>
+            </div>
+            <div id="askMessages" class="messages tall"></div>
+            <div class="chips" id="askHints"></div>
+            <div class="composer">
+              <button type="button" id="askMic" class="icon-btn">🎤</button>
+              <textarea id="askInput" rows="2" placeholder="Type anything…"></textarea>
+              <button type="button" id="askSend" class="btn primary">Send</button>
+            </div>
+          </div>
+          <div class="panel memory-panel">
+            <h3>Memory</h3>
+            <p id="memUser" class="sub">Grok remembers what you build and talk about</p>
+            <h4>Facts</h4>
+            <ul id="memFacts"></ul>
+            <h4>Lessons</h4>
+            <ul id="memLessons"></ul>
+            <div class="row gap">
+              <input id="userName" type="text" placeholder="Your name" />
+              <button type="button" id="btnSaveName" class="btn">Save</button>
+            </div>
+            <button type="button" id="btnClearMem" class="btn soft danger full">Clear memory</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script type="module" src="/app.js?v=young2"></script>
+</body>
+</html>
