@@ -1,4 +1,4 @@
-# Share Grok Super Tutor
+﻿# Share Grok Super Tutor
 
 ## The deal (simple)
 
@@ -6,10 +6,10 @@
 
 | | |
 |--|--|
-| **Super Tutor agent** (this app) | **Free** — share with anyone |
-| **Grok** (xAI) | **Their** subscription / login — powers teaching |
-| **Truth-seeking** | **Locked on** — cannot be turned off |
-| **Other AIs** | **Not allowed** — Grok only |
+| **Super Tutor agent** (this app) | **Free** â€” share with anyone |
+| **Grok** (xAI) | **Their** subscription / login â€” powers teaching |
+| **Truth-seeking** | **Locked on** â€” cannot be turned off |
+| **Other AIs** | **Not allowed** â€” Grok only |
 
 No Base44. No paywall on the tutor itself. If they can use Grok, they can use Super Tutor.
 
@@ -23,7 +23,7 @@ No Base44. No paywall on the tutor itself. If they can use Grok, they can use Su
 
 ## Path to give people (install)
 
-### Option A — Folder copy (simple)
+### Option A â€” Folder copy (simple)
 
 1. Copy the whole `grok-agent` folder to their PC.  
 2. Install Node.js LTS if missing.  
@@ -40,14 +40,14 @@ powershell -ExecutionPolicy Bypass -File .\Install-Grok-Agent.ps1
 grok login
 ```
 
-   (or put an xAI API key in `config.json` as `apiKey` — still Grok only)
+   (or put an xAI API key in `config.json` as `apiKey` â€” still Grok only)
 
-5. Double-click **Grok Agent** on the desktop → http://127.0.0.1:3847
+5. Double-click **Grok Agent** on the desktop â†’ http://127.0.0.1:3847
 
-### Option B — Public GitHub (recommended)
+### Option B â€” Public GitHub (recommended)
 
 ```text
-git clone https://github.com/YOUR_GITHUB_USERNAME/grok-super-tutor.git
+git clone https://github.com/wieldyjarl8108-collab/grok-super-tutor.git
 cd grok-super-tutor
 npm install
 npm run install-pc
@@ -58,9 +58,9 @@ Then open **Grok Agent**.
 
 Public GitHub repos are **free**. Agent code is free. They only need **their** Grok subscription.
 
-### Option C — One-line story for parents / friends
+### Option C â€” One-line story for parents / friends
 
-> “If you have Grok, Super Tutor is free. Install it on your PC, sign in with Grok, and kids get endless true lessons. Truth-seeking stays on — no other AI.”
+> â€œIf you have Grok, Super Tutor is free. Install it on your PC, sign in with Grok, and kids get endless true lessons. Truth-seeking stays on â€” no other AI.â€
 
 ## What is locked (users cannot change)
 
@@ -68,12 +68,12 @@ These live under `core/` and are enforced by the server:
 
 | Lock | Meaning |
 |------|---------|
-| **Truth constitution** | `core/truth-constitution.mjs` — always injected; boot fails if broken |
-| **Grok only** | `core/provider-lock.mjs` — only `grok-*` models + `api.x.ai` |
-| **No system-prompt API** | `POST /api/system-prompt` → 403 |
+| **Truth constitution** | `core/truth-constitution.mjs` â€” always injected; boot fails if broken |
+| **Grok only** | `core/provider-lock.mjs` â€” only `grok-*` models + `api.x.ai` |
+| **No system-prompt API** | `POST /api/system-prompt` â†’ 403 |
 | **No other providers in config** | Setting OpenAI/etc. URLs is rejected |
 
-Learner data (kids, progress, memory) **is** editable — that’s personal.  
+Learner data (kids, progress, memory) **is** editable â€” thatâ€™s personal.  
 **Truth rules and provider lock are not.**
 
 ## Who can update the agent
@@ -95,8 +95,8 @@ Kids **never run out of classes**:
 
 ## Tab presence
 
-When someone opens Super Tutor in a browser tab, the agent logs a **local** session open (`data/sessions.json`) and heartbeats while the tab is active. Nothing is sold to advertisers — it’s so the host PC knows the agent is in use.
+When someone opens Super Tutor in a browser tab, the agent logs a **local** session open (`data/sessions.json`) and heartbeats while the tab is active. Nothing is sold to advertisers â€” itâ€™s so the host PC knows the agent is in use.
 
 ## Disclaimer
 
-Educational only. Not a school, PE stamp, or financial advisor. Market lab is play money. Parents remain responsible for children’s learning and for their own Grok account terms.
+Educational only. Not a school, PE stamp, or financial advisor. Market lab is play money. Parents remain responsible for childrenâ€™s learning and for their own Grok account terms.
