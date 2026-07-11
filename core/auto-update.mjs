@@ -11,17 +11,26 @@ export const OFFICIAL_REPO = 'wieldyjarl8108-collab/grok-super-tutor';
 export const OFFICIAL_BRANCH = 'main';
 const RAW_BASE = `https://raw.githubusercontent.com/${OFFICIAL_REPO}/${OFFICIAL_BRANCH}`;
 
-/** Files we may refresh from official main (truth-critical). */
-const PROTECTED_PATHS = [
+/** Files we may refresh from official main (truth-critical).
+ * Boot-time updates only touch core/* so we never hot-overwrite a running server.mjs.
+ * Full tree refresh: POST /api/update/official with { full: true } then restart.
+ */
+const CORE_ONLY_PATHS = [
   'core/truth-constitution.mjs',
   'core/provider-lock.mjs',
   'core/integrity-guard.mjs',
   'core/endless-topics.mjs',
   'core/session-presence.mjs',
+  'core/auto-update.mjs',
+];
+
+const FULL_PATHS = [
+  ...CORE_ONLY_PATHS,
   'server.mjs',
   'tutor-store.mjs',
   'seed-lessons.mjs',
   'disclaimers.mjs',
+  'INSTALL-ME.bat',
 ];
 
 async function fetchText(path) {
@@ -38,9 +47,10 @@ async function fetchText(path) {
  * Download official core files into agentRoot.
  * Reseals integrity after successful pull.
  */
-export async function pullOfficialUpdate(agentRoot, dataDir) {
+export async function pullOfficialUpdate(agentRoot, dataDir, { full = false } = {}) {
+  const list = full ? FULL_PATHS : CORE_ONLY_PATHS;
   const results = [];
-  for (const rel of PROTECTED_PATHS) {
+  for (const rel of list) {
     try {
       const text = await fetchText(rel);
       // Sanity: truth file must still ban lies
@@ -79,11 +89,11 @@ export async function pullOfficialUpdate(agentRoot, dataDir) {
   // Write fresh seal from written files
   try {
     const files = {};
-    for (const rel of PROTECTED_PATHS.filter((p) => p.startsWith('core/'))) {
-      const full = join(agentRoot, rel);
-      if (existsSync(full)) {
+    for (const rel of CORE_ONLY_PATHS) {
+      const fp = join(agentRoot, rel);
+      if (existsSync(fp)) {
         files[rel.replace('core/', '')] = createHash('sha256')
-          .update(readFileSync(full))
+          .update(readFileSync(fp))
           .digest('hex');
       }
     }
