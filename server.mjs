@@ -24,6 +24,13 @@ import {
 import { assertTruthIntact, truthPromptBlock, truthFingerprint } from './core/truth-constitution.mjs';
 import { enforceGrokModel, enforceGrokApiUrl, providerPublicInfo, ALLOWED_XAI_URL } from './core/provider-lock.mjs';
 import { createSessionStore } from './core/session-presence.mjs';
+import {
+  sealOrVerifyCore,
+  checkLiePressure,
+  uninstallSuperTutorOnly,
+  integrityPublicInfo,
+} from './core/integrity-guard.mjs';
+import { pullOfficialUpdate, OFFICIAL_REPO } from './core/auto-update.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const PORT = Number(process.env.GROK_AGENT_PORT || 3847);
@@ -34,8 +41,14 @@ const XAI_URL = enforceGrokApiUrl(ALLOWED_XAI_URL);
 
 // Locked cores — refuse boot if truth constitution is broken
 assertTruthIntact();
-
 if (!existsSync(DATA_DIR)) mkdirSync(DATA_DIR, { recursive: true });
+try {
+  sealOrVerifyCore(DATA_DIR);
+} catch (e) {
+  console.error(e.message);
+  console.error('Reinstall clean from https://github.com/' + OFFICIAL_REPO);
+  process.exit(1);
+}
 
 const tutorStore = createTutorStore(DATA_DIR);
 const sessionStore = createSessionStore(DATA_DIR);
@@ -679,7 +692,19 @@ app.get('/api/health', (_req, res) => {
     freeForGrokSubscribers: true,
     shareDoc: 'SHARE.md',
     sharePitch: 'Free for everyone with a Grok subscription. Agent free · Grok powers it · truth locked.',
+    integrity: integrityPublicInfo(),
+    officialRepo: `https://github.com/${OFFICIAL_REPO}`,
   });
+});
+
+/** Pull clean files from official GitHub (truth-safe updates without you babysitting). */
+app.post('/api/update/official', async (_req, res) => {
+  try {
+    const result = await pullOfficialUpdate(__dirname, DATA_DIR);
+    res.json(result);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
 });
 
 /** Tab open / presence — knows when someone loads the agent in a browser */
@@ -847,8 +872,38 @@ app.post('/api/tutor/complete', (req, res) => {
  */
 app.post('/api/tutor', async (req, res) => {
   try {
+    // Re-verify truth core every turn (stops mid-session file hacks)
+    try {
+      assertTruthIntact();
+      sealOrVerifyCore(DATA_DIR);
+    } catch (e) {
+      return res.status(403).json({
+        error: e.message,
+        code: 'TRUTH_LOCK',
+        message: 'Super Tutor will not teach. Core truth files were changed. Reinstall from official GitHub only.',
+      });
+    }
+
     const message = String(req.body?.message || '').trim();
     if (!message) return res.status(400).json({ error: 'message required' });
+
+    // Block users trying to force lies / jailbreak truth
+    const pressure = checkLiePressure(message, DATA_DIR);
+    if (pressure.blocked) {
+      if (pressure.uninstall) {
+        setTimeout(() => {
+          try { uninstallSuperTutorOnly(pressure.reason); } catch { /* */ }
+          process.exit(0);
+        }, 800);
+      }
+      return res.status(403).json({
+        error: pressure.reason,
+        code: 'TRUTH_LOCK',
+        message: pressure.reason,
+        strikes: pressure.strikes,
+        uninstalling: !!pressure.uninstall,
+      });
+    }
 
     const history = Array.isArray(req.body?.history) ? req.body.history : [];
     let child = req.body?.child && typeof req.body.child === 'object' ? req.body.child : {};
@@ -1132,11 +1187,18 @@ async function main() {
     console.log('  Grok Super Tutor is live (education only)');
     console.log(`  http://127.0.0.1:${PORT}`);
     console.log('  Truth-seeking: LOCKED · Provider: Grok only · Classes: endless');
+    console.log('  Anti-lie strikes → app self-removes (app only, not whole PC)');
     if (cli) console.log('  Auth: Grok CLI');
     else if (hasKey) console.log('  Auth: API key');
     else console.log('  Auth: run  grok login');
-    console.log('  Share: see SHARE.md (free agent · needs Grok access)');
+    console.log('  Official: https://github.com/' + OFFICIAL_REPO);
     console.log('');
+    // Quiet background refresh from official GitHub (Grok-era updates without you)
+    pullOfficialUpdate(__dirname, DATA_DIR)
+      .then((r) => {
+        if (r.ok) console.log(`  Official update check: ${r.updated} file(s) refreshed`);
+      })
+      .catch(() => { /* offline ok */ });
     if (process.env.GROK_OPEN_BROWSER !== '0') {
       import('child_process').then(({ exec }) => {
         if (process.platform === 'win32') {
