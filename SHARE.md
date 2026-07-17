@@ -1,8 +1,8 @@
-# Share Grok Super Tutor (plain English)
+﻿# Share Grok Super Tutor (plain English)
 
 ## Who teaches?
 
-**Grok teaches the kids — not you.**
+**Grok teaches the kids â€” not you.**
 
 You only **share the free app**.  
 Parents install it. Grok (with **their** subscription) is the teacher.
@@ -29,7 +29,7 @@ It is only a **free place to download the app** (like a public shelf for the sof
 
 **https://github.com/wieldyjarl8108-collab/grok-super-tutor**
 
-### Easiest download (no “git”):
+### Easiest download (no â€œgitâ€):
 
 1. Open that link  
 2. Click green **Code**  
@@ -44,7 +44,7 @@ powershell -ExecutionPolicy Bypass -File .\Install-Grok-Agent.ps1
 ```
 
 7. They run: `grok login` (their Grok)  
-8. Desktop shortcut **Grok Agent** → kids learn  
+8. Desktop shortcut **Grok Agent** â†’ kids learn  
 
 Direct ZIP (same thing):  
 https://github.com/wieldyjarl8108-collab/grok-super-tutor/archive/refs/heads/main.zip
@@ -53,9 +53,9 @@ https://github.com/wieldyjarl8108-collab/grok-super-tutor/archive/refs/heads/mai
 
 ## One line for X / texts
 
-> Free Super Tutor if you have Grok. Download the app, log into Grok — Grok teaches the kids (not me).  
+> Free Super Tutor if you have Grok. Download the app, log into Grok â€” Grok teaches the kids (not me).  
 > https://github.com/wieldyjarl8108-collab/grok-super-tutor  
-> Independent project — not affiliated with Elon, xAI, or Grok.
+> Independent project â€” not affiliated with Elon, xAI, or Grok.
 
 ---
 
